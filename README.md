@@ -1,12 +1,11 @@
 ## Overview🌐
 
-- Replicated the design from [Dribbble - Ahead App Redesign Concept](https://dribbble.com/shots/19807069-Ahead-app-redesign-concept) with animations.
 - Utilized Next.js for building the project, providing server-side rendering capabilities and optimized performance.
 - Leveraged Tailwind CSS for styling the components, ensuring a responsive and visually appealing UI.
 
 ## Deployment🚀
 
-<!-- The project is deployed and can be accessed [here](https://density-exchange-stutimahajan.netlify.app/). -->
+<!-- The project is deployed and can be accessed [here](). -->
 
 ## Tech Stack⚙️
 
@@ -33,8 +32,8 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Stutimaha/Ahead-App-Redesign
-   cd Ahead-App-Redesign
+   git clone 
+   cd ahead-finalboss
 
 2. Install dependencies:
 
@@ -51,9 +50,4 @@
 ## Task Completion✅
 
 The project successfully implements the provided design with animations using Next.js and Tailwind CSS. Components are organized in the `src/components` folder, and the overall project structure adheres to best practices.
-
-## Contact📧
-
-- LinkedIn: [Stuti Mahajan](https://www.linkedin.com/in/stuti-mahajan/)
-- Email: [stutimahajan15@gmail.com](mailto:stutimahajan15@gmail.com)
 
