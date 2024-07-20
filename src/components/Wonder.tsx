@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import Image from "next/image";
+
 const Wonder: React.FC = () => {
   return (
     <section className="mt-8 md:mt-16 lg:mb-32 rounded-3xl bg-blue-50 p-4 md:p-10 mx-4 lg:mx-24">

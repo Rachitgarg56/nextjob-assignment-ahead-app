@@ -29,8 +29,8 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
         <div className="basis-1/2 flex items-center justify-center w-full">
-          <div className="h-64 w-64 flex items-center">
-            <Image className="h-full w-full" height={100} width={100} src="/mobile.svg" alt="" />
+          <div className="h-64 w-64 lg:h-80 lg:w-80 flex items-center">
+            <Image className="h-full w-full" height={100} width={100} src="https://storage.googleapis.com/web-api-media-uploads/media/Image_3_387b57044f/Image_3_387b57044f.svg" alt="" />
           </div>
           <motion.div
             whileInView="visible"

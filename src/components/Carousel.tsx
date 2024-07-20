@@ -1,25 +1,32 @@
 "use client";
 import { motion } from "framer-motion";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
 const Carousel: React.FC = () => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   const boxContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const [isMediumScreen, setIsMediumScreen] = useState(false); 
+  // Intersection Observer callback
+  const observerCallback = useCallback(
+    ([entry]: IntersectionObserverEntry[]) => {
+      setIsIntersecting(entry.isIntersecting);
+    },
+    []
+  );
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-      },
-      { rootMargin: "-300px" }
-    );
+    const observer = new IntersectionObserver(observerCallback, {
+      rootMargin: "-300px",
+    });
     if (ref.current) {
       observer.observe(ref.current);
     }
     return () => observer.disconnect();
-  }, [isIntersecting]);
+  }, [observerCallback]);
 
   useEffect(() => {
     if (isIntersecting && boxContainerRef.current) {
@@ -31,6 +38,53 @@ const Carousel: React.FC = () => {
     }
   }, [isIntersecting]);
 
+  useEffect(() => {
+    const updateScreenSize = () => {
+      const width = window.innerWidth;
+      setIsSmallScreen(width <= 768);
+      setIsMobileScreen(width <= 320);
+      setIsMediumScreen(width <= 1024); // Set medium screen size
+    };
+
+    // Update screen size on initial render
+    updateScreenSize();
+
+    // Update screen size on resize
+    window.addEventListener("resize", updateScreenSize);
+
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
+
+  // Function to get text motion variants
+  const getTextMotionVariants = () => ({
+    visible: { opacity: 1, scale: 1, y: 0, x: 0 },
+    hidden: { opacity: 0, scale: 0, x: "-50%" },
+  });
+
+  // Function to get image motion variants
+  const getImageMotionVariants = () => ({
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: isMobileScreen
+        ? [0, -50, -150, -200, -60]
+        : isSmallScreen
+        ? [0, -100, -300, -450, -130]
+        : isMediumScreen
+        ? [0, -80, -200, -300, -100] // Animation for 1024px
+        : [0, -100, -300, -450, -390],
+      y: isMobileScreen ? [10, 5, 2, 0, -5] : [35, 20, 10, 0, -10],
+      rotate: isMobileScreen
+        ? [-10, -20, -10, -10, -10, -10, -2]
+        : isSmallScreen
+        ? [-20, -45, -35, -35, -35, -35, -5]
+        : isMediumScreen
+        ? [-30, -20, -10, -5, -2] // Rotation for 1024px
+        : [-20, -45, -35, -35, -35, -35, -5],
+    },
+    hidden: { opacity: 0, scale: 0 },
+  });
+
   return (
     <section className="overflow-x-hidden lg:mt-12 lg:mb-32 p-4 lg:px-20" ref={ref}>
       <div className="flex flex-row items-center justify-between">
@@ -40,10 +94,7 @@ const Carousel: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true }}
           transition={{ duration: 1.9, type: "spring", bounce: "0.1" }}
-          variants={{
-            visible: { opacity: 1, scale: 1, y: 0, x: 0 },
-            hidden: { opacity: 0, scale: 0, x: "-50%" },
-          }}
+          variants={getTextMotionVariants()}
         >
           <h1 className="text-4xl lg:text-5xl font-bold md:px-4 md:mb-5">
             Does this sound familiar...
@@ -54,18 +105,9 @@ const Carousel: React.FC = () => {
           transition={{ duration: 2.1, ease: "easeInOut", type: "spring", delay: 0.3 }}
           initial="hidden"
           whileInView="visible"
-          variants={{
-            visible: {
-              opacity: 1,
-              scale: 1,
-              x: [0, -100, -300, -450, -390],
-              y: [35, 20, 10, 0, -10],
-              rotate: [-20, -45, -35, -35, -35, -35, -5],
-            },
-            hidden: { opacity: 0, scale: 0 },
-          }}
+          variants={getImageMotionVariants()}
         >
-          <Image width={70} height={70} alt="" src="/red-ghost.png" />
+          <Image width={70} height={70} alt="" src="/red-ghost.png" className="" />
         </motion.div>
       </div>
       <div
