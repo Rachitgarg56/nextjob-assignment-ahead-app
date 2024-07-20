@@ -5,7 +5,7 @@
 
 ## Deployment🚀
 
-<!-- The project is deployed and can be accessed [here](). -->
+- The project is deployed and can be accessed [here](https://nextjob-assignment-ahead-app.vercel.app/).
 
 ## Tech Stack⚙️
 
@@ -32,7 +32,7 @@
 1. Clone the repository:
 
    ```bash
-   git clone 
+   git clone https://github.com/Rachitgarg56/nextjob-assignment-ahead-app.git
    cd ahead-finalboss
 
 2. Install dependencies:
